@@ -1,10 +1,10 @@
-# mf0952_1.github.io
-CARACTERÍSTICAS DE SEGURIDAD EN LA PUBLICACIÓN DE PÁGINAS WEB
+# Característiques de Seguretat en Publicació de Pàgines WEB
 
 Arxiu docker-compose.yml per crear una imatge Docker amb sistema operatiu Linux Alpine que permeti la connexió per SSH.
 
-Primer, crea un fitxer anomenat Dockerfile amb el següent contingut:
+1) Primer, crea un fitxer anomenat Dockerfile amb el següent contingut:
 
+```python
 FROM alpine:latest
 
 RUN apk update && apk add openssh
@@ -19,15 +19,16 @@ RUN sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/ss
 EXPOSE 22
 
 CMD ["/usr/sbin/sshd", "-D"]
+```
 
-Explicació del Dockerfile:
+## Explicació del Dockerfile:
 
-FROM alpine:latest: Indica que la imatge base serà la darrera versió d'Alpine Linux.
-RUN apk update && apk add openssh: Actualitza els paquets i instal·la el servidor SSH (openssh).
-RUN echo "root:la_teva_contrasenya" | chpasswd: Estableix la contrasenya per a l'usuari root. Important: Substitueix la_teva_contrasenya per una contrasenya segura.
-RUN sed -i ...: Aquestes dues línies modifiquen el fitxer de configuració SSH (/etc/ssh/sshd_config) per permetre l'inici de sessió de l'usuari root mitjançant contrasenya. Això no es recomana per a entorns de producció per motius de seguretat. És preferible utilitzar claus SSH.   
-EXPOSE 22: Indica que el contenidor exposarà el port 22 (el port per defecte d'SSH).
-CMD ["/usr/sbin/sshd", "-D"]: Executa el servidor SSH en primer pla quan s'inicia el contenidor.
+>FROM alpine:latest: Indica que la imatge base serà la darrera versió d'Alpine Linux.
+>RUN apk update && apk add openssh: Actualitza els paquets i instal·la el servidor SSH (openssh).
+>RUN echo "root:la_teva_contrasenya" | chpasswd: Estableix la contrasenya per a l'usuari root. Important: Substitueix la_teva_contrasenya per una contrasenya segura.
+>RUN sed -i ...: Aquestes dues línies modifiquen el fitxer de configuració SSH (/etc/ssh/sshd_config) per permetre l'inici de sessió de l'usuari root mitjançant contrasenya. Això no es recomana per a entorns de producció per motius de seguretat. És preferible utilitzar claus SSH.   
+>EXPOSE 22: Indica que el contenidor exposarà el port 22 (el port per defecte d'SSH).
+>CMD ["/usr/sbin/sshd", "-D"]: Executa el servidor SSH en primer pla quan s'inicia el contenidor.
 Després, crea un fitxer anomenat docker-compose.yml al mateix directori amb el següent contingut:
 
 YAML
@@ -53,16 +54,16 @@ Obre la teva terminal i navega fins a aquest directori.
 Executa la comanda: docker-compose up -d
 Això construirà la imatge Docker i iniciarà el contenidor en segon pla.
 
-Com connectar-se per SSH:
+**Com connectar-se per SSH:**
 
 Un cop el contenidor estigui en funcionament, podràs connectar-te per SSH des de la teva màquina amfitriona utilitzant la següent comanda:
 
-Bash
+**Bash**
 
 ssh root@localhost -p 2222
 Se't demanarà la contrasenya que vas establir al Dockerfile (en l'exemple, la_teva_contrasenya).
 
-Important:
+**Important:**
 
 Seguretat: Recorda que permetre l'inici de sessió de root amb contrasenya no és la pràctica més segura per a entorns de producció. Per a una major seguretat, es recomana utilitzar claus SSH. Si vols utilitzar claus SSH, hauries de modificar el Dockerfile per copiar la teva clau pública i configurar SSH per utilitzar l'autenticació per clau.
 Contrasenya: Assegura't de triar una contrasenya forta i única per a l'usuari root.
