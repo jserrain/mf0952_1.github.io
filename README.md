@@ -59,7 +59,9 @@ ports:: Defineix el mapeig de ports entre la màquina amfitriona i el contenidor
 **Com utilitzar-ho:**
 
 a) Guarda els dos fitxers (Dockerfile i docker-compose.yml) en el mateix directori.
+
 b) Obre la teva terminal i navega fins a aquest directori.
+
 c) Executa la comanda: docker-compose up -d
 
 *Això construirà la imatge Docker i iniciarà el contenidor en segon pla.*
