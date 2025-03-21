@@ -45,17 +45,21 @@ services:
 
 **Explicació del docker-compose.yml:**
 
+```python
 version: '3.8': Especifica la versió del format de Docker Compose.
 services:: Defineix els serveis que es crearan.
 alpine-ssh:: El nom del servei.
 build: .: Indica que la imatge es construirà a partir del Dockerfile que es troba en el mateix directori.
 ports:: Defineix el mapeig de ports entre la màquina amfitriona i el contenidor. "2222:22" significa que el port 2222 de la teva màquina amfitriona es redirigirà al port 22 del contenidor.
-Com utilitzar-ho:
+````
 
-Guarda els dos fitxers (Dockerfile i docker-compose.yml) en el mateix directori.
-Obre la teva terminal i navega fins a aquest directori.
-Executa la comanda: docker-compose up -d
-Això construirà la imatge Docker i iniciarà el contenidor en segon pla.
+**Com utilitzar-ho:**
+
+a) Guarda els dos fitxers (Dockerfile i docker-compose.yml) en el mateix directori.
+b) Obre la teva terminal i navega fins a aquest directori.
+c) Executa la comanda: docker-compose up -d
+
+*Això construirà la imatge Docker i iniciarà el contenidor en segon pla.*
 
 **Com connectar-se per SSH:**
 
@@ -63,11 +67,15 @@ Un cop el contenidor estigui en funcionament, podràs connectar-te per SSH des d
 
 **Bash**
 
+```python
 ssh root@localhost -p 2222
+````
+
 Se't demanarà la contrasenya que vas establir al Dockerfile (en l'exemple, la_teva_contrasenya).
 
 **Important:**
 
-Seguretat: Recorda que permetre l'inici de sessió de root amb contrasenya no és la pràctica més segura per a entorns de producció. Per a una major seguretat, es recomana utilitzar claus SSH. Si vols utilitzar claus SSH, hauries de modificar el Dockerfile per copiar la teva clau pública i configurar SSH per utilitzar l'autenticació per clau.
-Contrasenya: Assegura't de triar una contrasenya forta i única per a l'usuari root.
+**Seguretat:** Recorda que permetre l'inici de sessió de root amb contrasenya no és la pràctica més segura per a entorns de producció. Per a una major seguretat, es recomana utilitzar claus SSH. Si vols utilitzar claus SSH, hauries de modificar el Dockerfile per copiar la teva clau pública i configurar SSH per utilitzar l'autenticació per clau.
+
+**Contrasenya:** Assegura't de triar una contrasenya forta i única per a l'usuari root.
 Aquest arxiu docker-compose.yml i el Dockerfile et proporcionen una manera senzilla de crear un contenidor Alpine Linux amb accés SSH per a proves o desenvolupament
