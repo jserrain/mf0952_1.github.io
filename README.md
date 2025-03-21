@@ -62,8 +62,10 @@ a) Guarda els dos fitxers (Dockerfile i docker-compose.yml) en el mateix directo
 
 b) Obre la teva terminal i navega fins a aquest directori.
 
-c) Executa la comanda: ***docker-compose up -d***
-
+c) Executa la comanda: 
+```c
+docker-compose up -d
+````
 *Això construirà la imatge Docker i iniciarà el contenidor en segon pla.*
 
 **Com connectar-se per SSH:**
