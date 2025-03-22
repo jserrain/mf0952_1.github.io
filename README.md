@@ -23,15 +23,15 @@ CMD ["/usr/sbin/sshd", "-D"]
 
 ## Explicació del Dockerfile:
 
-```c++
-FROM alpine:latest: Indica que la imatge base serà la darrera versió d'Alpine Linux.
-RUN apk update && apk add openssh: Actualitza els paquets i instal·la el servidor SSH (openssh).
-RUN echo "root:la_teva_contrasenya" | chpasswd: Estableix la contrasenya per a l'usuari root. Important: Substitueix la_teva_contrasenya per una contrasenya segura.
-RUN sed -i ...: Aquestes dues línies modifiquen el fitxer de configuració SSH (/etc/ssh/sshd_config) per permetre l'inici de sessió de l'usuari root mitjançant contrasenya. Això no es recomana per a entorns de producció per motius de seguretat. És preferible utilitzar claus SSH.   
-EXPOSE 22: Indica que el contenidor exposarà el port 22 (el port per defecte d'SSH).
-CMD ["/usr/sbin/sshd", "-D"]: Executa el servidor SSH en primer pla quan s'inicia el contenidor.
 
-````
+<p>FROM alpine:latest==: Indica que la imatge base serà la darrera versió d'Alpine Linux.</p>
+<p>RUN apk update && apk add openssh: Actualitza els paquets i instal·la el servidor SSH (openssh).</p>
+<p>RUN echo "root:la_teva_contrasenya" | chpasswd: Estableix la contrasenya per a l'usuari root. Important: Substitueix la_teva_contrasenya per una contrasenya segura.</p>
+<p>RUN sed -i ...: Aquestes dues línies modifiquen el fitxer de configuració SSH (/etc/ssh/sshd_config) per permetre l'inici de sessió de l'usuari root mitjançant contrasenya. 
+Això no es recomana per a entorns de producció per motius de seguretat. És preferible utilitzar claus SSH.</p> 
+<p>EXPOSE 22: Indica que el contenidor exposarà el port 22 (el port per defecte d'SSH).
+CMD ["/usr/sbin/sshd", "-D"]: Executa el servidor SSH en primer pla quan s'inicia el contenidor.</p>
+
 
 2) Després, crea un fitxer anomenat docker-compose.yml al mateix directori amb el següent contingut:
 
