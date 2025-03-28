@@ -1,5 +1,7 @@
 # Característiques de Seguretat en Publicació de Pàgines WEB
 
+1) Instal·lació docker desktop
+
 Arxiu docker-compose.yml per crear una imatge Docker amb sistema operatiu Linux Alpine que permeti la connexió per SSH.
 
 1) Primer, crea un fitxer anomenat "Dockerfile" amb el següent contingut:
