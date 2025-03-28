@@ -35,7 +35,7 @@ Això no es recomana per a entorns de producció per motius de seguretat. És pr
 CMD ["/usr/sbin/sshd", "-D"]: Executa el servidor SSH en primer pla quan s'inicia el contenidor.</p>
 
 
-2) Després, crea un fitxer anomenat docker-compose.yml al mateix directori amb el següent contingut:
+2) Després, crea un fitxer anomenat "docker-compose.yml" al mateix directori amb el següent contingut:
 
 ```python
 version: '3.8'
