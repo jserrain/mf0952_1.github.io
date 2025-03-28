@@ -38,7 +38,6 @@ CMD ["/usr/sbin/sshd", "-D"]: Executa el servidor SSH en primer pla quan s'inici
 2) Després, crea un fitxer anomenat "docker-compose.yml" al mateix directori amb el següent contingut:
 
 ```python
-version: '3.8'
 services:
   alpine-ssh:
     build: .
