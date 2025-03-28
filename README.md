@@ -9,18 +9,21 @@ Arxiu docker-compose.yml per crear una imatge Docker amb sistema operatiu Linux 
 ```python
 FROM alpine:latest
 
-RUN apk update && apk add openssh
+RUN apk update && apk add openssh openssh-client # Afegim openssh-client per tenir ssh-keygen
 
-# Estableix la contrasenya per a l'usuari root (canvia 'la_teva_contrasenya' per una contrasenya segura)
-RUN echo "root:la_teva_contrasenya" | chpasswd
+# Genera les claus d'host SSH
+RUN ssh-keygen -A
 
-# Opcional: Permet l'inici de sessió de root amb contrasenya (no recomanat per a producció)
+# Estableix la contrasenya per a l'usuari root
+RUN echo "root:1234" | chpasswd
+
+# Opcional: Permet l'inici de sessió de root amb contrasenya
 RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 RUN sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
 
 EXPOSE 22
 
-CMD ["/usr/sbin/sshd", "-D"]
+CMD ["/usr/sbin/sshd"]
 ```
 
 ## Explicació del Dockerfile:
