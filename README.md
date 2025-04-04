@@ -8,22 +8,15 @@ Arxiu docker-compose.yml per crear una imatge Docker amb sistema operatiu Linux 
 
 ```python
 FROM alpine:latest
-
-RUN apk update && apk add openssh openssh-client # Afegim openssh-client per tenir ssh-keygen
-
-# Genera les claus d'host SSH
-RUN ssh-keygen -A
-
-# Estableix la contrasenya per a l'usuari root
+RUN apk update && apk add openssh openssh-server openssh-client
 RUN echo "root:1234" | chpasswd
-
-# Opcional: Permet l'inici de sessió de root amb contrasenya
-RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
-RUN sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
-
+RUN ssh-keygen -A
+RUN echo "PermitRootLogin yes" > /etc/ssh/sshd_config
+RUN echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
+RUN echo "Port 22" >> /etc/ssh/sshd_config
+RUN chmod 600 /etc/ssh/sshd_config
 EXPOSE 22
-
-CMD ["/usr/sbin/sshd"]
+CMD ["/usr/sbin/sshd", "-d"]
 ```
 
 ## Explicació del Dockerfile:
@@ -50,20 +43,15 @@ services:
 
 **Explicació del docker-compose.yml:**
 
-```python
-version: '3.8': Especifica la versió del format de Docker Compose.
 services:: Defineix els serveis que es crearan.
 alpine-ssh:: El nom del servei.
 build: .: Indica que la imatge es construirà a partir del Dockerfile que es troba en el mateix directori.
 ports:: Defineix el mapeig de ports entre la màquina amfitriona i el contenidor. "2222:22" significa que el port 2222 de la teva màquina amfitriona es redirigirà al port 22 del contenidor.
-````
 
 **Com utilitzar-ho:**
 
 a) Guarda els dos fitxers (Dockerfile i docker-compose.yml) en el mateix directori.
-
 b) Obre la teva terminal i navega fins a aquest directori.
-
 c) Executa la comanda: 
 ```c
 docker-compose up -d
